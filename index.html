@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Hashing via HTTP</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+</head>
+<body>
+    <script>
+        function hashPassword(password) {
+            // Use SHA-256 to hash the password
+            var hashedPassword = CryptoJS.SHA256(password).toString();
+            return hashedPassword;
+        }
+
+        // Function to handle query parameters (password passed to the URL)
+        function getQueryParam(param) {
+            let params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+
+        // Get the 'password' parameter from the URL
+        let password = getQueryParam('password');
+
+        if (password) {
+            // If password is provided, hash it and display the result
+            let hashedPassword = hashPassword(password);
+            document.write('Hashed Password: ' + hashedPassword);
+        } else {
+            document.write('No password provided.');
+        }
+    </script>
+</body>
+</html>
